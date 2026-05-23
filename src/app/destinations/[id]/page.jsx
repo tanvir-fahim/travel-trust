@@ -1,3 +1,4 @@
+import { EditDestinationModal } from "@/components/EditDestinationModal";
 import Image from "next/image";
 import { LuClock, LuMapPin, LuTag } from "react-icons/lu";
 
@@ -8,11 +9,16 @@ const DestinationDetailsPage = async ({ params }) => {
     const res = await fetch(`http://localhost:5000/destination/${id}`);
 
     const destination = await res.json();
-    const { _id, destinationName, country, category, description, price, imageUrl, duration } = destination;
+    const {destinationName, country, category, description, price, imageUrl, duration } = destination;
 
     // console.log("Destination Details:", destination);
     return (
-        <div className="max-w-7xl mx-auto p-6 bg-white dark:bg-zinc-900 rounded-lg shadow-md flex justify-center items-start gap-6 my-8">
+        <div className = "max-w-7xl mx-auto mt-6">
+        <div className="flex justify-end">
+            <EditDestinationModal destination={destination} />
+        </div>
+
+        <div className="p-6 bg-white dark:bg-zinc-900 rounded-lg shadow-md flex justify-center items-start gap-6 my-6">
             <div className="w-full h-96 relative overflow-hidden rounded-lg mb-6">
                 <Image
                     src={imageUrl}
@@ -31,9 +37,11 @@ const DestinationDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="mt-4">
-                    <p><span className="font-semibold">Price:</span> ${price.toFixed(2)}/<small>person</small></p>
+                    <p><span className="font-semibold">Price:</span> ${price}/<small>person</small></p>
                 </div>
             </div>
+        </div>
+
         </div>
     );
 };
