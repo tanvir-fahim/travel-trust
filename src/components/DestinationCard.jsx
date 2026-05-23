@@ -1,22 +1,24 @@
 import { Card, CardHeader } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
+import { FiExternalLink } from "react-icons/fi";
 import { LuMapPin, LuClock, LuTag } from "react-icons/lu";
 
 const DestinationCard = ({ destination }) => {
-    const { destinationName, country, category, description, price, imageUrl, duration } = destination;
-    
+    const { _id, destinationName, country, category, description, price, imageUrl, duration } = destination;
+
     return (
         <Card className="p-4 shadow-md bg-white dark:bg-zinc-900 flex flex-col justify-between h-full">
             <div>
                 <div className="w-full h-50 relative overflow-hidden rounded-xl">
-                    <Image 
-                        src={imageUrl} 
-                        alt={destinationName} 
+                    <Image
+                        src={imageUrl}
+                        alt={destinationName}
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 350px"
                     />
-                    
+
                     <span className="absolute top-3 left-3 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm text-foreground">
                         <LuTag className="w-3 h-3 text-primary" />
                         {category}
@@ -47,7 +49,15 @@ const DestinationCard = ({ destination }) => {
                     <span className="text-2xl font-bold text-foreground">${price}</span>
                     <span className="text-xs text-default-400 ml-1">/ person</span>
                 </div>
+                <div>
+                    <Link href={`/destinations/${_id}`}>
+                        <button className="bg-primary text-blue-500 font-bold px-2 rounded-lg hover:underline flex items-center gap-1 text-lg">
+                            <FiExternalLink /> Book Now
+                        </button>
+                    </Link>
+                </div>
             </div>
+
         </Card>
     );
 };
