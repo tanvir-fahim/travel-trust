@@ -1,3 +1,4 @@
+import AlertDialogComponent from "@/components/AlertDialogComponent";
 import { EditDestinationModal } from "@/components/EditDestinationModal";
 import Image from "next/image";
 import { LuClock, LuMapPin, LuTag } from "react-icons/lu";
@@ -14,8 +15,9 @@ const DestinationDetailsPage = async ({ params }) => {
     // console.log("Destination Details:", destination);
     return (
         <div className = "max-w-7xl mx-auto mt-6">
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
             <EditDestinationModal destination={destination} />
+            <AlertDialogComponent destination={destination}/>
         </div>
 
         <div className="p-6 bg-white dark:bg-zinc-900 rounded-lg shadow-md flex justify-center items-start gap-6 my-6">
