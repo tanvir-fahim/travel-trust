@@ -2,12 +2,18 @@
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const Navbar = () => {
 
     const { data: session } = authClient.useSession();
     const user = session?.user;
     // console.log(user);
+
+    const handleLogout = async () => {
+        await authClient.signOut();
+        redirect("/login");
+    }
     return (
         <nav className="bg-white shadow flex items-center justify-between p-5">
             <ul className="flex space-x-4 flex-1">
@@ -29,7 +35,7 @@ const Navbar = () => {
                             <Avatar.Image alt="John Doe" src={user?.image} />
                             <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
                         </Avatar>
-                        <li><Link href="/logout"><Button variant="danger">Logout</Button></Link></li>
+                        <li><Button onClick={handleLogout} variant="danger">Logout</Button></li>
                     </>
                 ) : (
                     <>
